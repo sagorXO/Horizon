@@ -1,0 +1,119 @@
+'use client';
+
+import React from 'react';
+
+interface ProgressRailProps {
+  progress: number;
+}
+
+export const STAGE_MARKERS = [
+  { percent: 25, label: 'Foundation', stageIndex: 0 },
+  { percent: 50, label: 'Steel Frame', stageIndex: 1 },
+  { percent: 75, label: 'Glass Facade', stageIndex: 2 },
+  { percent: 100, label: 'Completed', stageIndex: 3 },
+];
+
+export function ProgressRail({ progress }: ProgressRailProps) {
+  const percentage = Math.min(100, Math.max(0, Math.round(progress * 100)));
+  const isComplete = progress >= 0.99 || percentage >= 99;
+
+  return (
+    <aside
+      aria-label="Tower Construction Progress Rail"
+      className={`fixed right-6 md:right-12 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-6 select-none transition-all duration-700 ${
+        isComplete ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+      }`}
+    >
+      {/* Assembly Percentage Display Header */}
+      <div className="flex flex-col items-center text-center">
+        <span className="text-[9px] uppercase tracking-[0.25em] text-[#9CA3AF] font-mono font-medium mb-1">
+          ASSEMBLY
+        </span>
+        <span className="text-sm md:text-base font-mono font-extrabold text-[#38BDF8] tracking-widest min-w-[3.5rem]">
+          {percentage}%
+        </span>
+      </div>
+
+      {/* Main Vertical Track & Stage Markers Container */}
+      <div className="relative h-64 md:h-80 w-12 flex justify-center items-center">
+        {/* Background Rail Line */}
+        <div className="absolute top-0 bottom-0 w-[2px] bg-[#1E293B]" />
+
+        {/* Dynamic Progress Fill Line */}
+        <div
+          className="absolute top-0 w-[2px] bg-[#38BDF8] transition-all duration-150 ease-out shadow-[0_0_10px_#38BDF8]"
+          style={{ height: `${percentage}%` }}
+        />
+
+        {/* 4 Stage Markers positioned accurately along rail track */}
+        <div className="absolute inset-0">
+          {STAGE_MARKERS.map((marker) => {
+            const isReached = percentage >= marker.percent;
+            const isCurrentActive =
+              (marker.percent === 25 && percentage <= 25) ||
+              (marker.percent === 50 && percentage > 25 && percentage <= 50) ||
+              (marker.percent === 75 && percentage > 50 && percentage <= 75) ||
+              (marker.percent === 100 && percentage > 75);
+
+            // Calculate vertical position percentage (25%, 50%, 75%, 98%)
+            const topPos = marker.percent === 100 ? '98%' : `${marker.percent}%`;
+
+            return (
+              <div
+                key={marker.percent}
+                className="absolute left-0 right-0 -translate-y-1/2 flex items-center justify-center cursor-pointer group"
+                style={{ top: topPos }}
+              >
+                {/* Horizontal Indicator Notch */}
+                <div
+                  className={`h-[2px] transition-all duration-300 ${
+                    isReached
+                      ? 'w-4 bg-[#38BDF8] shadow-[0_0_6px_#38BDF8]'
+                      : 'w-2 bg-[#475569]'
+                  }`}
+                />
+
+                {/* Tooltip / Label Flyout on Left */}
+                <div
+                  className={`absolute right-7 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-[#0B0F19]/90 border border-[#1E293B] px-3 py-1.5 backdrop-blur-md flex items-center gap-2 ${
+                    isCurrentActive ? 'opacity-100' : ''
+                  }`}
+                >
+                  <span className="text-[10px] font-mono font-bold text-[#38BDF8]">
+                    {marker.percent}%
+                  </span>
+                  <span className="text-[10px] font-sans uppercase tracking-[0.15em] text-[#F3F4F6]">
+                    {marker.label}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Vertical Axis Stage Markers List (Desktop Side Labels) */}
+      <div className="hidden lg:flex flex-col gap-6 text-right absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none">
+        {STAGE_MARKERS.map((marker) => {
+          const isPassed = percentage >= marker.percent;
+          return (
+            <div
+              key={marker.percent}
+              className={`flex items-center justify-end gap-2.5 transition-all duration-500 ${
+                isPassed ? 'text-[#38BDF8] opacity-100' : 'text-[#64748B] opacity-40'
+              }`}
+            >
+              <span className="text-[9px] font-sans uppercase tracking-[0.2em] font-semibold">
+                {marker.label}
+              </span>
+              <span className="text-[10px] font-mono font-bold">
+                {marker.percent}%
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}
+
