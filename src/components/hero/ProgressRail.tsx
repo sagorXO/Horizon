@@ -7,10 +7,12 @@ interface ProgressRailProps {
 }
 
 export const STAGE_MARKERS = [
-  { percent: 25, label: 'Foundation', stageIndex: 0 },
-  { percent: 50, label: 'Steel Frame', stageIndex: 1 },
-  { percent: 75, label: 'Glass Facade', stageIndex: 2 },
-  { percent: 100, label: 'Completed', stageIndex: 3 },
+  { percent: 0, label: 'Foundation', stageIndex: 0 },
+  { percent: 20, label: 'Steel Skeleton', stageIndex: 1 },
+  { percent: 45, label: 'Floor Slabs', stageIndex: 2 },
+  { percent: 65, label: 'Glass Cladding', stageIndex: 3 },
+  { percent: 85, label: 'Completed', stageIndex: 4 },
+  { percent: 100, label: 'Complete', stageIndex: 4 },
 ];
 
 export function ProgressRail({ progress }: ProgressRailProps) {
@@ -45,17 +47,10 @@ export function ProgressRail({ progress }: ProgressRailProps) {
           style={{ height: `${percentage}%` }}
         />
 
-        {/* 4 Stage Markers positioned accurately along rail track */}
+        {/* 5 Stage Markers reflecting assembly stages (0%, 20%, 45%, 65%, 85%, 100%) */}
         <div className="absolute inset-0">
           {STAGE_MARKERS.map((marker) => {
             const isReached = percentage >= marker.percent;
-            const isCurrentActive =
-              (marker.percent === 25 && percentage <= 25) ||
-              (marker.percent === 50 && percentage > 25 && percentage <= 50) ||
-              (marker.percent === 75 && percentage > 50 && percentage <= 75) ||
-              (marker.percent === 100 && percentage > 75);
-
-            // Calculate vertical position percentage (25%, 50%, 75%, 98%)
             const topPos = marker.percent === 100 ? '98%' : `${marker.percent}%`;
 
             return (
@@ -74,11 +69,7 @@ export function ProgressRail({ progress }: ProgressRailProps) {
                 />
 
                 {/* Tooltip / Label Flyout on Left */}
-                <div
-                  className={`absolute right-7 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-[#0B0F19]/90 border border-[#1E293B] px-3 py-1.5 backdrop-blur-md flex items-center gap-2 ${
-                    isCurrentActive ? 'opacity-100' : ''
-                  }`}
-                >
+                <div className="absolute right-7 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-[#0B0F19]/90 border border-[#1E293B] px-3 py-1.5 backdrop-blur-md flex items-center gap-2">
                   <span className="text-[10px] font-mono font-bold text-[#38BDF8]">
                     {marker.percent}%
                   </span>
@@ -91,29 +82,6 @@ export function ProgressRail({ progress }: ProgressRailProps) {
           })}
         </div>
       </div>
-
-      {/* Vertical Axis Stage Markers List (Desktop Side Labels) */}
-      <div className="hidden lg:flex flex-col gap-6 text-right absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none">
-        {STAGE_MARKERS.map((marker) => {
-          const isPassed = percentage >= marker.percent;
-          return (
-            <div
-              key={marker.percent}
-              className={`flex items-center justify-end gap-2.5 transition-all duration-500 ${
-                isPassed ? 'text-[#38BDF8] opacity-100' : 'text-[#64748B] opacity-40'
-              }`}
-            >
-              <span className="text-[9px] font-sans uppercase tracking-[0.2em] font-semibold">
-                {marker.label}
-              </span>
-              <span className="text-[10px] font-mono font-bold">
-                {marker.percent}%
-              </span>
-            </div>
-          );
-        })}
-      </div>
     </aside>
   );
 }
-

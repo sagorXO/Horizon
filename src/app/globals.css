@@ -41,8 +41,11 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-serif: var(--font-fraunces), serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-cinzel: var(--font-cinzel), 'Cinzel', Georgia, serif;
+  --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --font-serif: var(--font-cinzel), 'Cinzel', Georgia, serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 html {
@@ -54,13 +57,17 @@ html {
 body {
   background-color: #000000;
   color: #F3F4F6;
-  font-family: var(--font-sans);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-cinzel, .font-serif {
+  font-family: var(--font-cinzel), 'Cinzel', Georgia, serif;
 }
 
 /* 1. Global Zero Rounded Corners Enforcement */
 * {
-  border-radius: 0px !important;
+  border-radius: 0px;
 }
 
 /* 2. WebGL Canvas Positioning & Viewport Styles */

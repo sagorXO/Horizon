@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Cinzel } from "next/font/google";
 import "./globals.css";
 import { ClickToComponent } from "@/components/ClickToComponent";
 
@@ -9,10 +9,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${fraunces.variable} h-full antialiased bg-[#0B0C0E] text-[#F2F0EC]`}
+      className={`${inter.variable} ${cinzel.variable} h-full antialiased bg-[#0B0C0E] text-[#F2F0EC]`}
     >
       <body className="min-h-full flex flex-col bg-[#0B0C0E] selection:bg-[#5C7A99] selection:text-[#0B0C0E]">
         <ClickToComponent />

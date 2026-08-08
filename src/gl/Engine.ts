@@ -28,6 +28,8 @@ export class Engine {
   constructor(container?: HTMLElement) {
     this.qualityMonitor = new QualityMonitor();
     this.scene = new THREE.Scene();
+    // Transparent canvas — backdrop image is behind
+    this.scene.background = null;
     this.setupCamera();
     this.setupRenderer();
     this.setupQualityMonitor();
@@ -82,13 +84,13 @@ export class Engine {
     const initialDpr = Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, this.maxDprCap);
     this.renderer.setPixelRatio(initialDpr);
 
-    // Tone mapping: THREE.ACESFilmicToneMapping, exposure: 1.25
+    // Tone mapping: THREE.ACESFilmicToneMapping, exposure: 1.35
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.25;
+    this.renderer.toneMappingExposure = 1.35;
 
-    // Shadows: renderer.shadowMap.enabled = true, type: THREE.PCFShadowMap
+    // Shadows: renderer.shadowMap.enabled = true, type: THREE.PCFSoftShadowMap
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Color space configuration
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -228,22 +230,43 @@ export class Engine {
 
   /**
    * Updates camera position and orientation based on normalized scroll progress (0.0 to 1.0)
+   * with smooth lerp math framing the 45-story skyscraper gracefully across all 5 assembly stages.
    */
   public updateCameraFromProgress(progress: number): void {
     if (!this.camera) return;
 
     const p = THREE.MathUtils.clamp(progress, 0, 1);
-    const zoomP = THREE.MathUtils.clamp(p / 0.5, 0, 1);
-    const panP = THREE.MathUtils.clamp((p - 0.75) / 0.25, 0, 1);
 
-    const targetX = THREE.MathUtils.lerp(45, 18, zoomP);
-    const targetZ = THREE.MathUtils.lerp(45, 22, zoomP);
-    const targetY = THREE.MathUtils.lerp(15, 5, zoomP) + THREE.MathUtils.lerp(0, 30, panP);
+    // Bounded multi-stage keyframes for smooth, continuous 3D camera trajectory
+    const keyframes = [
+      { p: 0.00, pos: [28, 5, 28], look: [0, 2, 0] },     // Stage 0: Excavation & Foundation
+      { p: 0.20, pos: [34, 12, 34], look: [0, 6, 0] },    // Transition to Skeleton Rise
+      { p: 0.45, pos: [40, 22, 40], look: [0, 14, 0] },   // Stage 1: Steel Matrix Rise
+      { p: 0.65, pos: [46, 28, 46], look: [0, 18, 0] },   // Stage 2: Floor Slabs
+      { p: 0.85, pos: [52, 33, 52], look: [0, 21, 0] },   // Stage 3: Glass Cladding
+      { p: 1.00, pos: [56, 36, 56], look: [0, 22.5, 0] }, // Stage 4: Lighting & Complete Tower
+    ];
 
-    this.camera.position.set(targetX, targetY, targetZ);
+    let idx = 0;
+    while (idx < keyframes.length - 2 && p > keyframes[idx + 1].p) {
+      idx++;
+    }
 
-    const lookY = THREE.MathUtils.lerp(0, 8, zoomP) + THREE.MathUtils.lerp(0, 25, panP);
-    this.camera.lookAt(0, lookY, 0);
+    const k1 = keyframes[idx];
+    const k2 = keyframes[idx + 1];
+    const localT = (p - k1.p) / (k2.p - k1.p);
+    const ease = THREE.MathUtils.smoothstep(localT, 0, 1);
+
+    const posX = THREE.MathUtils.lerp(k1.pos[0], k2.pos[0], ease);
+    const posY = THREE.MathUtils.lerp(k1.pos[1], k2.pos[1], ease);
+    const posZ = THREE.MathUtils.lerp(k1.pos[2], k2.pos[2], ease);
+
+    const lookX = THREE.MathUtils.lerp(k1.look[0], k2.look[0], ease);
+    const lookY = THREE.MathUtils.lerp(k1.look[1], k2.look[1], ease);
+    const lookZ = THREE.MathUtils.lerp(k1.look[2], k2.look[2], ease);
+
+    this.camera.position.set(posX, posY, posZ);
+    this.camera.lookAt(lookX, lookY, lookZ);
   }
 
   /**

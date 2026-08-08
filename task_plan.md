@@ -1,18 +1,37 @@
 # Task Plan & RFC — Horizon Skyscraper Reconstruction
 
-## Milestones & Execution Checklist
+## Milestones & Execution Summary
 
-- [x] Phase 0: Project Memory Initialization & Video Frame Analysis
-- [x] Phase 1: Blueprint & Architecture Specification
-- [ ] Phase 2: Dual-Engine 3D & Procedural Canvas Assembly System
-- [ ] Phase 3: Visual Polish, Typography & Zero-Rounding Styling Pass
-- [ ] Phase 4: Verification, Automated Testing & Build Validation
+- [x] **Phase 0: Memory Initialization & Architecture Blueprint**
+  - PRD and constitution defined in `gemini.md`.
+  - UI design tokens, typography rules (`Cinzel` serif display + `Helvetica` sans body) established.
 
-## Architecture & Module Breakdown
+- [x] **Phase 1: Typography & Branding Standardization**
+  - Configured `Cinzel` font via `next/font/google` in `layout.tsx`.
+  - Applied CSS variable `--font-cinzel` to all `h1-h6` display elements in `globals.css`.
+  - Added dynamic dark/light logo switching (`HORIZON` logo) in `Navigation.tsx`.
 
-1. **`src/components/hero/TowerCanvas.tsx`**: Dual-Engine Renderer (Three.js WebGL + Canvas2D Procedural Fallback Engine). Guaranteed non-failing rendering.
-2. **`src/components/hero/ProceduralTowerCanvas.tsx`**: High-performance Canvas2D building renderer with real-time steel, glass, foundation, lighting, and camera pan math.
-3. **`src/components/hero/TowerModel.tsx`**: Multi-layer procedural Three.js mesh generator (foundation pilings, steel framework grid, glass facade panels, crown spire).
-4. **`src/components/hero/StageCaptions.tsx`**: High-contrast text overlays matching the exact video captions and timing.
-5. **`src/components/Navigation.tsx`**: Sharp, borderless, pill-less top navigation bar with luxury branding.
-6. **`src/components/sections/`**: Vision, Residences, Amenities, Location Map, and Inquiry Form sections with sharp dark styling.
+- [x] **Phase 2: High-Definition Sequential Visual Assembly**
+  - Created high-definition v2 architectural stage renderings (`v2-stage-0.jpg` through `v2-stage-4.jpg`).
+  - Adjusted camera perspective so the **full 45-story tower from foundation base to crown spire tip is completely visible inside the frame**.
+  - Implemented smooth crossfade interpolation across scroll progress in `HeroCanvas.tsx`.
+
+- [x] **Phase 3: Smooth Item Flow & HUD Callout System**
+  - Built interactive structural fly-in items (`steel girders`, `deck slabs`, `solar glass panels`, `crown/spire`).
+  - Added smooth cubic ease-out lerping as elements fly from off-screen into their precise grid positions on scroll.
+  - Added HUD technical callout tags (`STEEL GIRDER 250x300`, `COMPOSITE DECK SLAB`, `TRIPLE-GLAZED GLASS PANEL`, `ARCHITECTURAL CROWN`, `AVIATION BEACON SPIRE`).
+
+- [x] **Phase 4: Full Production Verification & Build Validation**
+  - TypeScript check: 0 errors (`npx tsc --noEmit`).
+  - Next.js Turbopack build: 100% clean static page compilation (`npm run build`).
+  - Playwright visual E2E verification across all scroll stages.
+
+---
+
+## Technical File Architecture
+
+1. **`src/components/hero/HeroCanvas.tsx`**: High-def v2 sequence crossfade renderer + floating HUD fly-in items.
+2. **`src/components/hero/StageCaptions.tsx`**: Dynamic stage captions (Phase 01 - Phase 05) synced to scroll progress.
+3. **`src/components/hero/ProgressRail.tsx`**: Vertical progress indicator (0% to 100%) with active phase checkpoints.
+4. **`src/components/Navigation.tsx`**: Scroll-aware luxury glassmorphic navbar with adaptive HORIZON logo.
+5. **`public/hero/`**: `v2-stage-0.jpg` through `v2-stage-4.jpg` high-definition stage series.

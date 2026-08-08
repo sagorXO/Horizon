@@ -47,19 +47,19 @@ export function LocationSection() {
               {/* Minimalist Radar/Map Graphic */}
               <div className="absolute inset-0 bg-[radial-gradient(#FFFFFF_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.05]" />
               
-              <svg className="absolute inset-0 w-full h-full stroke-white/20 fill-none" strokeWidth="1">
-                <circle cx="50%" cy="50%" r="20%" />
-                <circle cx="50%" cy="50%" r="40%" />
-                <circle cx="50%" cy="50%" r="60%" />
-                <path d="M 0 50% L 100% 50%" />
-                <path d="M 50% 0 L 50% 100%" />
+              <svg className="absolute inset-0 w-full h-full stroke-white/20 fill-none" viewBox="0 0 100 100" strokeWidth="0.5">
+                <circle cx="50" cy="50" r="20" />
+                <circle cx="50" cy="50" r="40" />
+                <circle cx="50" cy="50" r="60" />
+                <path d="M 0 50 L 100 50" />
+                <path d="M 50 0 L 50 100" />
               </svg>
 
               <div className="relative z-10 flex flex-col items-center">
                 <div className="w-2 h-2 bg-white rounded-none shadow-[0_0_15px_#FFFFFF]" />
                 <div className="w-32 h-32 absolute rounded-none animate-ping opacity-50" />
                 <div className="mt-8 text-center flex flex-col gap-2">
-                  <div className="text-xs font-serif italic text-white" style={{ fontFamily: 'Fraunces, serif' }}>Horizon Estates</div>
+                  <div className="text-xs font-cinzel text-white" style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}>Horizon Estates</div>
                   <div className="text-[9px] font-sans tracking-[0.3em] text-[#D1D5DB]">44° 18&apos; N, 73° 58&apos; W</div>
                 </div>
               </div>

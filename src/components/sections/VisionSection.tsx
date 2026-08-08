@@ -37,16 +37,19 @@ export function VisionSection() {
               The Vision
             </div>
             <h2
-              className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#0F172A] leading-[0.95] font-normal tracking-tight"
-              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+              className="text-5xl md:text-7xl lg:text-8xl font-cinzel text-[#0F172A] leading-[0.95] font-bold tracking-tight"
+              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
             >
               Redefining <br />
-              <span className="italic font-light text-[#0284C7]">The Skyline</span>
+              <span className="font-light text-[#0284C7]">The Skyline</span>
             </h2>
           </div>
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-end">
             <div className="lg:col-span-4">
-              <p className="text-base md:text-lg text-slate-600 font-light leading-relaxed bg-slate-50 p-8 border-l-2 border-[#0284C7]">
+              <p
+                className="text-base md:text-lg text-slate-600 font-light leading-relaxed bg-slate-50 p-8 border-l-2 border-[#0284C7] font-sans"
+                style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+              >
                 Horizon is not merely constructed; it is crafted as a living monument to sanctuary, privacy, and architectural permanence.
               </p>
             </div>
@@ -65,8 +68,18 @@ export function VisionSection() {
                 <div className="w-12 h-12 bg-[#0284C7]/10 flex items-center justify-center text-[#0284C7] mb-8 group-hover:bg-[#0284C7] group-hover:text-white transition-all duration-300">
                   <Icon size={22} />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-[#0F172A] mb-4">{pillar.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-light">{pillar.description}</p>
+                <h3
+                  className="text-xl font-cinzel font-bold text-[#0F172A] mb-4"
+                  style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
+                >
+                  {pillar.title}
+                </h3>
+                <p
+                  className="text-sm text-slate-600 leading-relaxed font-light font-sans"
+                  style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+                >
+                  {pillar.description}
+                </p>
               </div>
             );
           })}
@@ -76,45 +89,57 @@ export function VisionSection() {
         <div className="pt-28 grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-slate-200 mt-28">
           <div className="flex flex-col">
             <div
-              className="text-5xl md:text-7xl font-serif text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
+              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
             >
               100%
             </div>
-            <div className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold">
+            <div
+              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
+              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+            >
               Carbon Neutral
             </div>
           </div>
           <div className="flex flex-col">
             <div
-              className="text-5xl md:text-7xl font-serif text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
+              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
             >
               4.2
             </div>
-            <div className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold">
+            <div
+              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
+              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+            >
               Acres of Reserve
             </div>
           </div>
           <div className="flex flex-col">
             <div
-              className="text-5xl md:text-7xl font-serif text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
+              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
             >
               360°
             </div>
-            <div className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold">
+            <div
+              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
+              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+            >
               Panoramic Vistas
             </div>
           </div>
           <div className="flex flex-col">
             <div
-              className="text-5xl md:text-7xl font-serif text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-fraunces), Georgia, serif' }}
+              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
+              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
             >
               PLAT
             </div>
-            <div className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold">
+            <div
+              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
+              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+            >
               LEED Certified
             </div>
           </div>

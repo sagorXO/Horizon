@@ -7,90 +7,96 @@ interface StageCaptionsProps {
 }
 
 export interface StageInfo {
-  step: string;
-  eyebrow: string;
+  phase: string;
   title: string;
   description: string;
+  step?: string;
+  eyebrow?: string;
 }
 
 export const STAGES: StageInfo[] = [
   {
-    step: '01 / 04',
-    eyebrow: 'FOUNDATION',
-    title: 'The Foundation & Structure',
-    description:
-      'Groundwork laid for high-rise excellence. Deep subterranean footings and reinforced steel ground grids establish an enduring foundation for vertical scale.',
+    phase: 'Phase 01',
+    title: 'EXCAVATION & FOUNDATION',
+    description: 'Subterranean Footings & Grid',
+    step: '01 / 05',
+    eyebrow: 'EXCAVATION & FOUNDATION',
   },
   {
-    step: '02 / 04',
-    eyebrow: 'STEEL FRAME',
-    title: 'Engineered for Resilience',
-    description:
-      'Steel structural framework assembling floor by floor. Heavy structural steel framing and diagonal load-bearing trusses erect an unyielding architectural skeleton.',
+    phase: 'Phase 02',
+    title: 'STEEL SKELETON',
+    description: '45-Story Load-Bearing Frame',
+    step: '02 / 05',
+    eyebrow: 'STEEL SKELETON',
   },
   {
-    step: '03 / 04',
-    eyebrow: 'GLASS FACADE',
-    title: 'Sustainable & Modern Architecture',
-    description:
-      'Floor slabs and high-performance glass curtain walls. Installation of reflective double-glazed glass panels blending indoor luxury with panoramic altitudes.',
+    phase: 'Phase 03',
+    title: 'CONCRETE FLOOR SLABS',
+    description: 'Interlocking Decking & Core Slabs',
+    step: '03 / 05',
+    eyebrow: 'CONCRETE FLOOR SLABS',
   },
   {
-    step: '04 / 04',
+    phase: 'Phase 04',
+    title: 'GLASS CURTAIN CLADDING',
+    description: 'Triple-Glazed Solar Refractive Panels',
+    step: '04 / 05',
+    eyebrow: 'GLASS CURTAIN CLADDING',
+  },
+  {
+    phase: 'Phase 05',
+    title: 'COMPLETED TOWER',
+    description: 'Skyline Silhouette & Interior Glow',
+    step: '05 / 05',
     eyebrow: 'COMPLETED TOWER',
-    title: 'Welcome to The Future',
-    description:
-      'A landmark skyline icon engineered for eternity. The crown spire illuminates the skyline silhouette, completing the luxury architectural marvel.',
   },
 ];
 
 export function StageCaptions({ progress }: StageCaptionsProps) {
   const clampedProgress = Math.max(0, Math.min(1, progress));
 
-  // Determine active stage based on normalized scroll progress (0.0 to 1.0)
-  // Stage 1: 0.00 - 0.25 | Stage 2: 0.25 - 0.50 | Stage 3: 0.50 - 0.75 | Stage 4: 0.75 - 1.00
-  const activeIndex = clampedProgress >= 1
-    ? STAGES.length - 1
-    : Math.floor(clampedProgress * STAGES.length);
+  // 5 assembly stages mapping
+  let activeIndex = 0;
+  if (clampedProgress < 0.20) {
+    activeIndex = 0;
+  } else if (clampedProgress < 0.45) {
+    activeIndex = 1;
+  } else if (clampedProgress < 0.65) {
+    activeIndex = 2;
+  } else if (clampedProgress < 0.85) {
+    activeIndex = 3;
+  } else {
+    activeIndex = 4;
+  }
+
+  const activeStage = STAGES[activeIndex];
 
   return (
-    <div className="absolute inset-0 pointer-events-none flex flex-col justify-center max-w-[90rem] mx-auto px-8 md:px-16 z-20">
-      <div className="max-w-xl text-left relative min-h-[18rem] md:min-h-[22rem] flex items-center">
-        {STAGES.map((stage, idx) => {
-          const isActive = idx === activeIndex;
+    <div className="fixed bottom-12 left-12 z-40 max-w-md w-[calc(100vw-3rem)] sm:w-full pointer-events-none">
+      <div className="p-6 rounded-2xl backdrop-blur-lg bg-black/40 border border-white/15 text-white shadow-2xl pointer-events-auto relative overflow-hidden transition-all duration-500">
+        <div key={activeStage.phase} className="transition-all duration-500 transform opacity-100 translate-y-0">
+          {/* Monospace Phase Indicator */}
+          <div className="font-mono text-xs font-semibold tracking-[0.2em] text-[#38BDF8] uppercase mb-1.5 flex items-center gap-2">
+            <span>{activeStage.phase}</span>
+          </div>
 
-          return (
-            <div
-              key={stage.step}
-              className={`transition-all duration-700 transform absolute top-0 left-0 w-full ${
-                isActive
-                  ? 'opacity-100 translate-y-0 pointer-events-auto scale-100'
-                  : 'opacity-0 translate-y-8 pointer-events-none scale-95'
-              }`}
-            >
-              {/* Cyan Eyebrow & Step Badge Header (#38BDF8) */}
-              <div className="text-[11px] font-mono font-bold uppercase tracking-[0.3em] text-[#38BDF8] mb-4 flex items-center gap-3">
-                <span className="px-2.5 py-0.5 bg-[#38BDF8]/10 border border-[#38BDF8]/40 text-[#38BDF8] font-mono text-[10px] tracking-wider">
-                  {stage.step}
-                </span>
-                <span className="block w-8 h-[1px] bg-[#38BDF8]/60" />
-                <span>{stage.eyebrow}</span>
-              </div>
+          {/* Large Sleek Cinzel Title */}
+          <h2
+            className="text-xl md:text-2xl font-bold font-cinzel tracking-tight text-white mb-2 leading-tight"
+            style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
+          >
+            {activeStage.title}
+          </h2>
 
-              {/* Bold Display Title */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold text-white drop-shadow-2xl tracking-tight leading-[1.1] mb-6">
-                {stage.title}
-              </h1>
-
-              {/* Glassmorphic Text Container */}
-              <p className="text-xs sm:text-sm md:text-base text-[#E5E7EB] leading-relaxed font-sans max-w-lg backdrop-blur-xl bg-[#0B0F19]/80 p-5 md:p-6 rounded-none border-l-2 border-[#38BDF8] shadow-2xl">
-                {stage.description}
-              </p>
-            </div>
-          );
-        })}
+          {/* Light Helvetica Body Text */}
+          <p
+            className="text-sm text-gray-300 font-light leading-relaxed font-sans"
+            style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+          >
+            {activeStage.description}
+          </p>
+        </div>
       </div>
     </div>
   );
 }
-
