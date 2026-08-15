@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { useVideoScrub } from '@/hooks/useVideoScrub';
 import StageCaptions from './StageCaptions';
+import ProgressRail from './ProgressRail';
 
 export default function HeroVideoScrub() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,6 +30,7 @@ export default function HeroVideoScrub() {
 
       {/* Synchronized Architectural Stage Captions & Progress HUD */}
       <StageCaptions progress={progress} />
+      <ProgressRail progress={progress} />
 
       {/* Interactive Scroll Prompt Indicator */}
       <div 
