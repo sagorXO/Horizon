@@ -1,128 +1,95 @@
 'use client';
 
-import React from 'react';
-import { ArrowUpRight, Bed, Bath, Maximize2 } from 'lucide-react';
+import { Bed, Bath, Maximize } from 'lucide-react';
 
-export function ResidencesSection() {
-
+export default function ResidencesSection() {
   const residences = [
     {
-      id: 1,
-      name: 'The Garden Villa',
-      category: 'GROUND & TERRACE LEVEL',
-      tag: 'AVAILABLE',
-      beds: '3 Bedrooms',
-      baths: '3.5 Baths',
-      sqft: '3,850 SQ.FT.',
+      name: 'Garden Villa',
+      category: 'Signature Collection',
+      beds: 3,
+      baths: 3.5,
+      sqft: 3850,
       price: 'From $4.8M',
-      features: ['Private Heated Pool', '400 sq.ft. Deck', 'Direct Forest Trail Access'],
+      tag: 'AVAILABLE',
+      features: ['Private Terrace', 'Plunge Pool', 'Direct Elevator Access']
     },
     {
-      id: 2,
-      name: 'The Horizon Sky Suite',
-      category: 'LEVELS 02–04',
-      tag: 'EXCLUSIVE',
-      beds: '4 Bedrooms',
-      baths: '4.5 Baths',
-      sqft: '5,200 SQ.FT.',
+      name: 'Horizon Sky Suite',
+      category: 'Sky Collection',
+      beds: 4,
+      baths: 4.5,
+      sqft: 5200,
       price: 'From $6.5M',
-      features: ['270° Panoramic Glass', 'Double-Height Ceiling', 'Private Elevator Key'],
+      tag: 'EXCLUSIVE',
+      features: ['Panoramic Corner Views', 'Wine Cellar', 'Chef\'s Kitchen']
     },
     {
-      id: 3,
-      name: 'The Crown Penthouse',
-      category: 'LEVEL 05 CROWN',
-      tag: 'PENTHOUSE',
-      beds: '5 Bedrooms',
-      baths: '6.0 Baths',
-      sqft: '8,400 SQ.FT.',
+      name: 'Crown Penthouse',
+      category: 'The Apex',
+      beds: 5,
+      baths: 6.0,
+      sqft: 8400,
       price: 'Price Upon Request',
-      features: ['360° Rooftop Deck', 'Private Helipad Access', 'Dedicated Butler Concierge'],
-    },
+      tag: 'PENTHOUSE',
+      features: ['Triplex Layout', 'Private Rooftop Pool', 'Helipad Access']
+    }
   ];
 
   return (
-    <section id="residences" className="py-36 md:py-48 bg-[#000000] text-white border-t border-white/10 relative">
-      <div className="max-w-[90rem] mx-auto px-8 md:px-16">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12 pb-16">
-          <div>
-            <div className="flex items-center gap-4 text-[10px] font-sans uppercase tracking-[0.3em] text-[#38BDF8] mb-8">
-              <span className="w-12 h-[1px] bg-[#38BDF8]" />
-              Curated Collection
-            </div>
-            <h2 className="parallax-text text-5xl md:text-7xl lg:text-8xl font-serif italic text-white leading-[0.9] font-light" style={{ fontFamily: 'Fraunces, serif' }}>
-              Bespoke <br /> Residences
-            </h2>
-          </div>
-          <p className="text-sm uppercase tracking-[0.1em] font-sans text-[#D1D5DB] max-w-sm">
-            Every residence is individually tailored with floor-to-ceiling glass, custom acoustic barrier design, and private outdoors.
-          </p>
+    <section id="residences" className="bg-black text-white py-36 md:py-48 px-6">
+      <div className="container mx-auto max-w-6xl">
+        <div className="mb-20 text-center">
+          <span className="text-[10px] tracking-widest text-[#0EA5E9] uppercase mb-4 block">
+            The Collections
+          </span>
+          <h2 className="font-cinzel text-4xl md:text-5xl">Elevated Living</h2>
         </div>
 
-        {/* Residence Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {residences.map((res) => (
-            <div
-              key={res.id}
-              className="group glow-card relative bg-[#000000] backdrop-blur-2xl rounded-none p-8 transition-all duration-500 flex flex-col justify-between hover:shadow-[0_0_25px_rgba(56,189,248,0.25)] transform hover:-translate-y-2 overflow-hidden border border-white/10"
-            >
-              <div className="glow-bg absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.15)_0%,transparent_70%)] opacity-0 pointer-events-none w-[400px] h-[400px] -translate-x-1/2 -translate-y-1/2 rounded-none mix-blend-screen" />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#38BDF8]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div>
-                {/* Tag & Category */}
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-[10px] uppercase tracking-[0.2em] font-mono text-[#38BDF8]">
-                    {res.category}
-                  </span>
-                  <span className="px-3 py-1 rounded-none text-[10px] font-semibold uppercase tracking-wider bg-[#38BDF8]/20 text-[#38BDF8] shadow-[0_0_10px_rgba(56,189,248,0.2)] group-hover:shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all">
-                    {res.tag}
-                  </span>
-                </div>
+          {residences.map((res, i) => (
+            <div key={i} className="bg-[#0F172A] p-8 md:p-10 flex flex-col h-full border border-white/5 transition-colors hover:border-white/20">
+              <div className="flex justify-between items-start mb-12">
+                <span className="text-[9px] tracking-widest uppercase border border-[#0EA5E9] text-[#0EA5E9] px-3 py-1">
+                  {res.tag}
+                </span>
+              </div>
+              
+              <div className="mb-8">
+                <span className="text-[10px] uppercase tracking-widest text-[#64748B] block mb-2">
+                  {res.category}
+                </span>
+                <h3 className="font-cinzel text-3xl">{res.name}</h3>
+              </div>
 
-                {/* Title & Price */}
-                <h3 className="text-2xl md:text-3xl font-serif italic text-white mb-2 group-hover:text-[#38BDF8] transition-colors" style={{ fontFamily: 'Fraunces, serif' }}>
-                  {res.name}
-                </h3>
-                <div className="text-lg font-light text-white mb-8 relative z-10">
-                  {res.price}
+              <div className="flex items-center space-x-6 mb-12 text-sm text-white/70">
+                <div className="flex items-center space-x-2">
+                  <Bed size={16} /> <span>{res.beds}</span>
                 </div>
-
-                {/* Specs Pill List */}
-                <div className="grid grid-cols-3 gap-2 p-4 rounded-none bg-[#000000] backdrop-blur-md mb-8 text-center text-xs text-white relative z-10 transition-all border border-white/10 group-hover:border-white/20">
-                  <div className="flex flex-col items-center gap-1">
-                    <Bed size={16} className="text-[#38BDF8] drop-shadow-[0_0_5px_#38BDF8]" />
-                    <span className="text-[11px] font-light text-[#D1D5DB]">{res.beds}</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <Bath size={16} className="text-[#38BDF8] drop-shadow-[0_0_5px_#38BDF8]" />
-                    <span className="text-[11px] font-light text-[#D1D5DB]">{res.baths}</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
-                    <Maximize2 size={16} className="text-[#38BDF8] drop-shadow-[0_0_5px_#38BDF8]" />
-                    <span className="text-[11px] font-light text-[#D1D5DB]">{res.sqft}</span>
-                  </div>
+                <div className="flex items-center space-x-2">
+                  <Bath size={16} /> <span>{res.baths}</span>
                 </div>
+                <div className="flex items-center space-x-2">
+                  <Maximize size={16} /> <span>{res.sqft}</span>
+                </div>
+              </div>
 
-                <ul className="space-y-3 mb-8 relative z-10">
-                  {res.features.map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-xs text-[#D1D5DB] font-light">
-                      <span className="w-1.5 h-1.5 rounded-none bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]" />
+              <div className="mb-12 flex-grow">
+                <ul className="space-y-3">
+                  {res.features.map((feat, j) => (
+                    <li key={j} className="text-sm text-white/50 flex items-center before:content-[''] before:w-1 before:h-1 before:bg-[#0EA5E9] before:mr-3">
                       {feat}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Action Link */}
-              <a
-                href="#contact"
-                className="magnetic-button w-full py-3.5 px-6 rounded-none text-xs uppercase tracking-[0.15em] font-bold bg-white text-black hover:bg-[#E5E7EB] transition-all duration-300 flex items-center justify-center gap-2 relative z-10"
-              >
-                Inquire Floor Plan
-                <ArrowUpRight size={16} strokeWidth={2} />
-              </a>
+              <div className="mt-auto pt-8 border-t border-white/10 flex flex-col space-y-6">
+                <div className="font-cinzel text-2xl">{res.price}</div>
+                <a href="/inquire" className="text-[10px] uppercase tracking-widest text-[#0EA5E9] hover:text-white transition-colors flex items-center">
+                  View Details <span className="ml-2">→</span>
+                </a>
+              </div>
             </div>
           ))}
         </div>

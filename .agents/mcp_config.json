@@ -1,0 +1,69 @@
+{
+  "mcpServers": {
+    "stitch": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/stitch-mcp"],
+      "description": "Stitch MCP for UI/UX design generation. Use generate_screen_from_text for new screens, edit_screens for modifications, and generate_variants for A/B testing."
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp"],
+      "description": "Documentation lookup for libraries. Use resolve-library-id first, then query-docs."
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/sequential-thinking-mcp"],
+      "description": "Sequential reasoning for complex multi-step problems."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/playwright-mcp"],
+      "description": "Browser automation for visual QA, E2E testing, and screenshot capture."
+    }
+  },
+  "agentTeam": {
+    "leadArchitect": {
+      "role": "Lead Architect & Full-Stack Agent",
+      "responsibilities": [
+        "Project structure & Next.js App Router configuration",
+        "Dynamic routes (/projects/[slug])",
+        "API route security & validation",
+        "Build pipeline & deployment strategy",
+        "State management & data flow architecture"
+      ]
+    },
+    "motionGraphics": {
+      "role": "WebGL & Motion Graphics Agent",
+      "responsibilities": [
+        "HTML5 Canvas video scrub engine",
+        "GSAP ScrollTrigger configuration & tuning",
+        "requestAnimationFrame lerp smoothing loop",
+        "Video-scroll sync at 60 FPS",
+        "Fallback image crossfade system",
+        "HUD fly-in structural item animations"
+      ]
+    },
+    "uiuxDesign": {
+      "role": "UI/UX & Brand Design Agent",
+      "responsibilities": [
+        "Stitch MCP screen generation & iteration",
+        "Cinzel + Helvetica typography enforcement",
+        "Onyx / Steel / Horizon Blue color system",
+        "Glassmorphic surface styling",
+        "Zero rounded corners global constraint",
+        "Responsive layout across 360px-2560px"
+      ]
+    },
+    "devopsSecurity": {
+      "role": "DevOps & Security Agent",
+      "responsibilities": [
+        "Security headers (CSP, HSTS, X-Frame-Options)",
+        "Zod validation schema authoring",
+        "Rate limiting on API endpoints",
+        "npm audit & dependency vulnerability scanning",
+        "CI/CD pipeline configuration",
+        "Performance budgets & Lighthouse enforcement"
+      ]
+    }
+  }
+}

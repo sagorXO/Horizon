@@ -1,0 +1,119 @@
+{
+  "project": "Horizon – Ultra-Luxury Real Estate Showcase",
+  "version": "2.0",
+  "updated": "2026-08-13T16:52:30+03:00",
+  "phases": [
+    {
+      "id": "P1",
+      "name": "Workspace Preparation & PRD",
+      "status": "complete",
+      "steps": [
+        { "id": "1.1", "task": "Clone repo and verify project structure", "status": "complete" },
+        { "id": "1.2", "task": "Audit existing codebase and dependencies", "status": "complete" },
+        { "id": "1.3", "task": "Document current component tree", "status": "complete" },
+        { "id": "1.4", "task": "Identify unused WebGL/Three.js code for removal", "status": "complete" },
+        { "id": "1.5", "task": "Catalog all static assets (images, video, fonts)", "status": "complete" },
+        { "id": "1.6", "task": "Define brand tokens and design language", "status": "complete" },
+        { "id": "1.7", "task": "Write Product Requirements Document (PRD)", "status": "complete" },
+        { "id": "1.8", "task": "Finalize task plan and dependency graph", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "UI/UX Design via Stitch MCP",
+      "status": "complete",
+      "depends_on": [],
+      "steps": [
+        { "id": "2.1", "task": "Generate hero section screen via Stitch", "status": "complete" },
+        { "id": "2.2", "task": "Generate navigation bar screen via Stitch", "status": "complete" },
+        { "id": "2.3", "task": "Generate Vision section screen", "status": "complete" },
+        { "id": "2.4", "task": "Generate Residences section screen", "status": "complete" },
+        { "id": "2.5", "task": "Generate Amenities section screen", "status": "complete" },
+        { "id": "2.6", "task": "Generate Contact/Inquire form screen", "status": "complete" },
+        { "id": "2.7", "task": "Generate Projects gallery screen", "status": "complete" },
+        { "id": "2.8", "task": "Generate About page screen", "status": "complete" },
+        { "id": "2.9", "task": "Generate Footer screen", "status": "complete" },
+        { "id": "2.10", "task": "User review and iterate until approved", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "Codebase Surgery",
+      "status": "complete",
+      "depends_on": ["P2"],
+      "steps": [
+        { "id": "3.1", "task": "Process & upscale 4K Video.mp4 (3836x2160, 8.29s) to web-optimized public/Video.mp4 (23.3 MB)", "status": "complete" },
+        { "id": "3.2", "task": "npm uninstall three @react-three/fiber @react-three/drei @types/three", "status": "complete" },
+        { "id": "3.3", "task": "npm install zod react-hook-form @hookform/resolvers class-variance-authority", "status": "complete" },
+        { "id": "3.4", "task": "Delete src/gl/ directory (BuildingAssembly.ts, Engine.ts, Environment.ts, QualityMonitor.ts)", "status": "complete" },
+        { "id": "3.5", "task": "Delete src/components/hero/ProceduralTowerCanvas.tsx, HeroCanvas.tsx, ProgressIndicator.tsx", "status": "complete" },
+        { "id": "3.6", "task": "Delete public/hero/stage-*.png (old v1 images)", "status": "complete" },
+        { "id": "3.7", "task": "Delete public/hero/v2-stage-0..3.jpg (keep only v2-stage-4.jpg as poster)", "status": "complete" },
+        { "id": "3.8", "task": "Delete fix_stuff.js, remove_borders.js, CLAUDE.md from project root", "status": "complete" },
+        { "id": "3.9", "task": "Verify npm run build still passes after cleanup", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "Video Scrub Engine",
+      "status": "complete",
+      "depends_on": ["P3"],
+      "steps": [
+        { "id": "4.1", "task": "Create src/hooks/useVideoScrub.ts", "status": "complete" },
+        { "id": "4.2", "task": "Create src/components/hero/HeroVideoScrub.tsx", "status": "complete" },
+        { "id": "4.3", "task": "Create src/components/hero/FlyInItems.tsx (extracted HUD overlay)", "status": "complete" },
+        { "id": "4.4", "task": "Rewrite src/app/page.tsx for video scrub hero", "status": "complete" },
+        { "id": "4.5", "task": "Update StageCaptions.tsx and ProgressRail.tsx if needed", "status": "complete" },
+        { "id": "4.6", "task": "Verify video scrub works at 60 FPS in browser", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "Pages & Components",
+      "status": "complete",
+      "depends_on": ["P2", "P4"],
+      "steps": [
+        { "id": "5.1", "task": "Create src/lib/utils.ts (cn helper)", "status": "complete" },
+        { "id": "5.2", "task": "Create src/lib/validation.ts (Zod schemas)", "status": "complete" },
+        { "id": "5.3", "task": "Create src/config/stages.ts", "status": "complete" },
+        { "id": "5.4", "task": "Create src/config/navigation.ts", "status": "complete" },
+        { "id": "5.5", "task": "Create src/config/seo.ts", "status": "complete" },
+        { "id": "5.6", "task": "Create UI primitives: Button, Card, Input, Badge", "status": "complete" },
+        { "id": "5.7", "task": "Implement /projects gallery page", "status": "complete" },
+        { "id": "5.8", "task": "Implement /projects/[slug] detail page", "status": "complete" },
+        { "id": "5.9", "task": "Implement /about page", "status": "complete" },
+        { "id": "5.10", "task": "Implement /contact page with Zod validation", "status": "complete" },
+        { "id": "5.11", "task": "Create API route POST /api/contact", "status": "complete" },
+        { "id": "5.12", "task": "Update globals.css — clean up unused WebGL styles", "status": "complete" },
+        { "id": "5.13", "task": "Update src/lib/tokens.ts — align with brand tokens", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "Security Hardening",
+      "status": "complete",
+      "depends_on": ["P5"],
+      "steps": [
+        { "id": "6.1", "task": "Update next.config.ts with full CSP + security headers", "status": "complete" },
+        { "id": "6.2", "task": "Add rate limiting to /api/contact", "status": "complete" },
+        { "id": "6.3", "task": "Add origin validation to API routes", "status": "complete" },
+        { "id": "6.4", "task": "Create .env.example", "status": "complete" },
+        { "id": "6.5", "task": "Run npm audit", "status": "complete" }
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "Polish & Verification",
+      "status": "complete",
+      "depends_on": ["P6"],
+      "steps": [
+        { "id": "7.1", "task": "TypeScript check (0 errors)", "status": "complete" },
+        { "id": "7.2", "task": "Production build (clean compile)", "status": "complete" },
+        { "id": "7.3", "task": "Lighthouse audit compliance", "status": "complete" },
+        { "id": "7.4", "task": "Visual QA", "status": "complete" },
+        { "id": "7.5", "task": "Responsive testing (360px-2560px)", "status": "complete" },
+        { "id": "7.6", "task": "Accessibility audit (WCAG 2.1 AA)", "status": "complete" }
+      ]
+    }
+  ]
+}

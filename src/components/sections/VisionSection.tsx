@@ -1,148 +1,56 @@
 'use client';
 
-import React from 'react';
-import { Compass, ShieldCheck, Sun, Layers } from 'lucide-react';
-
-export function VisionSection() {
+export default function VisionSection() {
   const pillars = [
-    {
-      icon: Compass,
-      title: 'Architectural Scale',
-      description: 'A monument engineered with ultra-high-strength concrete and structural steel, redefining vertical potential and urban scale.',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Ecological Symbiosis',
-      description: 'Integrating bio-facades, natural thermal regulation, and rainwater harvesting to exist in harmony with the environment.',
-    },
-    {
-      icon: Sun,
-      title: 'Kinetic Facade',
-      description: 'Adaptive double-skin structural glass that responds to solar paths, minimizing glare while maximizing panoramic exposure.',
-    },
-    {
-      icon: Layers,
-      title: 'Sanctuary Isolation',
-      description: 'Acoustically decoupled floor slabs and triple-paned acoustic glass ensure absolute silence within the urban expanse.',
-    },
+    { title: 'Resilience', desc: 'Engineered to withstand the tests of time and nature.' },
+    { title: 'Precision', desc: 'Every angle calculated, every material flawlessly sourced.' },
+    { title: 'Sustainability', desc: 'Leading the future of green architectural integration.' },
+    { title: 'Privacy', desc: 'Exclusive access corridors and sound-isolated environments.' },
   ];
 
   return (
-    <section id="vision" className="py-32 md:py-44 bg-white text-[#0F172A] relative border-t border-slate-200">
-      <div className="max-w-[90rem] mx-auto px-8 md:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 pb-28">
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div className="text-[10px] font-sans uppercase tracking-[0.3em] text-[#0284C7] mb-8 flex items-center gap-4 font-bold">
-              <span className="w-12 h-[2px] bg-[#0284C7]"></span>
-              The Vision
-            </div>
-            <h2
-              className="text-5xl md:text-7xl lg:text-8xl font-cinzel text-[#0F172A] leading-[0.95] font-bold tracking-tight"
-              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-            >
-              Redefining <br />
-              <span className="font-light text-[#0284C7]">The Skyline</span>
+    <section id="vision" className="bg-white text-[#0F172A] py-36 md:py-48 px-6">
+      <div className="container mx-auto max-w-6xl">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-24">
+          <div className="max-w-xl">
+            <span className="text-[10px] tracking-widest text-[#0EA5E9] uppercase mb-6 block">
+              The Horizon Standard
+            </span>
+            <h2 className="font-cinzel text-4xl md:text-5xl lg:text-6xl leading-tight">
+              Architecture That Transcends Time
             </h2>
           </div>
-          <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-end">
-            <div className="lg:col-span-4">
-              <p
-                className="text-base md:text-lg text-slate-600 font-light leading-relaxed bg-slate-50 p-8 border-l-2 border-[#0284C7] font-sans"
-                style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-              >
-                Horizon is not merely constructed; it is crafted as a living monument to sanctuary, privacy, and architectural permanence.
-              </p>
-            </div>
+          <div className="max-w-md pt-4 md:pt-12">
+            <p className="text-base text-[#64748B] leading-relaxed">
+              We did not just aim to build another skyscraper. We set out to redefine the relationship 
+              between vertical living and the natural environment. A monumental achievement in structural 
+              expression, combining brute strength with ethereal elegance.
+            </p>
           </div>
         </div>
 
-        {/* Four Pillar Grid in Clean White */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pillars.map((pillar) => {
-            const Icon = pillar.icon;
-            return (
-              <div
-                key={pillar.title}
-                className="group p-8 bg-slate-50 border border-slate-200 transition-all duration-500 hover:border-[#0284C7] hover:shadow-xl relative overflow-hidden"
-              >
-                <div className="w-12 h-12 bg-[#0284C7]/10 flex items-center justify-center text-[#0284C7] mb-8 group-hover:bg-[#0284C7] group-hover:text-white transition-all duration-300">
-                  <Icon size={22} />
-                </div>
-                <h3
-                  className="text-xl font-cinzel font-bold text-[#0F172A] mb-4"
-                  style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-                >
-                  {pillar.title}
-                </h3>
-                <p
-                  className="text-sm text-slate-600 leading-relaxed font-light font-sans"
-                  style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-                >
-                  {pillar.description}
-                </p>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-32">
+          {pillars.map((pillar, i) => (
+            <div key={i} className="flex flex-col">
+              <div className="w-3 h-3 bg-[#0EA5E9] mb-6" />
+              <h3 className="font-cinzel text-xl mb-4">{pillar.title}</h3>
+              <p className="text-sm text-[#64748B]">{pillar.desc}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Oversized Stats */}
-        <div className="pt-28 grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-slate-200 mt-28">
-          <div className="flex flex-col">
-            <div
-              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-            >
-              100%
+        <div className="border-t border-[#0F172A]/10 pt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            { value: '100%', label: 'Renewable Energy' },
+            { value: '4.2', label: 'Million Sq Ft' },
+            { value: '360°', label: 'Unobstructed Views' },
+            { value: 'LEED', label: 'Platinum Certified' },
+          ].map((stat, i) => (
+            <div key={i}>
+              <div className="font-cinzel text-4xl md:text-5xl mb-2">{stat.value}</div>
+              <div className="text-[10px] uppercase tracking-widest text-[#64748B]">{stat.label}</div>
             </div>
-            <div
-              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
-              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-            >
-              Carbon Neutral
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div
-              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-            >
-              4.2
-            </div>
-            <div
-              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
-              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-            >
-              Acres of Reserve
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div
-              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-            >
-              360°
-            </div>
-            <div
-              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
-              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-            >
-              Panoramic Vistas
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div
-              className="text-5xl md:text-7xl font-cinzel text-[#0F172A] font-bold tracking-tight mb-2"
-              style={{ fontFamily: 'var(--font-cinzel), Cinzel, Georgia, serif' }}
-            >
-              PLAT
-            </div>
-            <div
-              className="text-[10px] font-sans uppercase tracking-[0.2em] text-slate-500 font-bold"
-              style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
-            >
-              LEED Certified
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
