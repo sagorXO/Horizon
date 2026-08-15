@@ -12,7 +12,7 @@ export default function HeroVideoScrub() {
 
   return (
     <section ref={containerRef} className="w-full h-screen relative overflow-hidden bg-black">
-      {/* Direct hardware-accelerated 4K Video Element */}
+      {/* Direct hardware-accelerated 4K Video Element with 1.08x overscan to eliminate edge artifacts and watermarks */}
       <video
         ref={videoRef}
         src="/Video.mp4"
@@ -21,7 +21,7 @@ export default function HeroVideoScrub() {
         playsInline
         preload="auto"
         crossOrigin="anonymous"
-        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none transform scale-[1.08]"
       />
 
       {/* Cinematic Vignette Overlay */}

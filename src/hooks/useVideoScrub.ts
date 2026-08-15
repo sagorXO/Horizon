@@ -12,7 +12,7 @@ export function useVideoScrub(
   videoRef: RefObject<HTMLVideoElement | null>,
   triggerRef: RefObject<HTMLDivElement | null>,
   scrollEnd = '+=300%',
-  lerpFactor = 0.2
+  lerpFactor = 0.08
 ) {
   const [progress, setProgress] = useState(0);
   const [isVideoReady, setIsVideoReady] = useState(false);
