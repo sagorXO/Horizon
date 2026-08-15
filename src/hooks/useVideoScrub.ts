@@ -10,111 +10,117 @@ if (typeof window !== 'undefined') {
 
 export function useVideoScrub(
   videoRef: RefObject<HTMLVideoElement | null>,
-  canvasRef: RefObject<HTMLCanvasElement | null>,
   triggerRef: RefObject<HTMLDivElement | null>,
   scrollEnd = '+=300%',
-  lerpFactor = 0.25
+  lerpFactor = 0.2
 ) {
   const [progress, setProgress] = useState(0);
   const [isVideoReady, setIsVideoReady] = useState(false);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(8.3); // default fallback duration
 
   const targetTimeRef = useRef(0);
   const currentTimeRef = useRef(0);
   const rAfRef = useRef<number | null>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
-  // Helper to render video frame to canvas
-  const renderFrame = () => {
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    if (!video || !canvas || video.readyState < 2) return;
-
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-
-    const w = video.videoWidth || 1920;
-    const h = video.videoHeight || 1080;
-
-    if (canvas.width !== w || canvas.height !== h) {
-      canvas.width = w;
-      canvas.height = h;
-    }
-
-    ctx.drawImage(video, 0, 0, w, h);
-  };
-
-  // Step 1: Initialize video metadata
+  // Step 1: Initialize video metadata and prime hardware decoder
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleReady = () => {
-      if (video.duration && !isNaN(video.duration)) {
+    let isMounted = true;
+
+    const handleLoaded = () => {
+      if (!isMounted) return;
+      if (video.duration && !isNaN(video.duration) && video.duration > 0) {
         setDuration(video.duration);
         setIsVideoReady(true);
-        renderFrame();
       }
     };
 
-    video.addEventListener('loadedmetadata', handleReady);
-    video.addEventListener('loadeddata', handleReady);
-    video.addEventListener('canplay', handleReady);
-    video.addEventListener('seeked', renderFrame);
+    const primeVideo = async () => {
+      try {
+        video.currentTime = 0.01;
+        await video.play();
+        video.pause();
+      } catch {
+        // Autoplay may be restricted before interaction; safe to ignore
+      }
+      handleLoaded();
+    };
 
-    if (video.readyState >= 2) {
-      handleReady();
+    video.addEventListener('loadedmetadata', handleLoaded);
+    video.addEventListener('loadeddata', handleLoaded);
+    video.addEventListener('canplay', handleLoaded);
+    video.addEventListener('canplaythrough', handleLoaded);
+
+    if (video.readyState >= 1) {
+      handleLoaded();
     }
 
+    primeVideo();
+
     return () => {
-      video.removeEventListener('loadedmetadata', handleReady);
-      video.removeEventListener('loadeddata', handleReady);
-      video.removeEventListener('canplay', handleReady);
-      video.removeEventListener('seeked', renderFrame);
+      isMounted = false;
+      video.removeEventListener('loadedmetadata', handleLoaded);
+      video.removeEventListener('loadeddata', handleLoaded);
+      video.removeEventListener('canplay', handleLoaded);
+      video.removeEventListener('canplaythrough', handleLoaded);
     };
-  }, [videoRef, canvasRef]);
+  }, [videoRef]);
 
-  // Step 2: GSAP ScrollTrigger & render loop
+  // Step 2: GSAP ScrollTrigger & 60fps lerp loop
   useEffect(() => {
-    if (!isVideoReady || !triggerRef.current || !videoRef.current || !canvasRef.current) return;
-
     const video = videoRef.current;
+    const trigger = triggerRef.current;
+    if (!trigger || !video) return;
+
+    const effectiveDuration = duration > 0 ? duration : 8.3;
 
     scrollTriggerRef.current = ScrollTrigger.create({
-      trigger: triggerRef.current,
+      trigger,
       start: 'top top',
       end: scrollEnd,
       pin: true,
-      scrub: 0.15,
+      scrub: 0.1,
       anticipatePin: 1,
       onUpdate: (self) => {
         setProgress(self.progress);
-        targetTimeRef.current = self.progress * duration;
+        targetTimeRef.current = self.progress * effectiveDuration;
       },
     });
 
     const updateLoop = () => {
-      if (video && video.readyState >= 2) {
+      if (video) {
         const diff = targetTimeRef.current - currentTimeRef.current;
         currentTimeRef.current += diff * lerpFactor;
-        const clamped = Math.max(0, Math.min(currentTimeRef.current, duration));
+        const clamped = Math.max(0, Math.min(currentTimeRef.current, effectiveDuration - 0.02));
 
-        if (Math.abs(video.currentTime - clamped) > 0.001 && !video.seeking) {
+        if (Math.abs(video.currentTime - clamped) > 0.02 && !video.seeking) {
           video.currentTime = clamped;
         }
-
-        renderFrame();
       }
       rAfRef.current = requestAnimationFrame(updateLoop);
     };
 
+    const handleSeeked = () => {
+      if (video) {
+        const clamped = Math.max(0, Math.min(currentTimeRef.current, effectiveDuration - 0.02));
+        if (Math.abs(video.currentTime - clamped) > 0.02 && !video.seeking) {
+          video.currentTime = clamped;
+        }
+      }
+    };
+
+    video.addEventListener('seeked', handleSeeked);
     rAfRef.current = requestAnimationFrame(updateLoop);
 
     return () => {
       scrollTriggerRef.current?.kill();
+      video.removeEventListener('seeked', handleSeeked);
       if (rAfRef.current !== null) cancelAnimationFrame(rAfRef.current);
     };
-  }, [isVideoReady, duration, triggerRef, videoRef, canvasRef, scrollEnd, lerpFactor]);
+  }, [isVideoReady, duration, triggerRef, videoRef, scrollEnd, lerpFactor]);
 
   return { progress, isVideoReady, duration };
 }
